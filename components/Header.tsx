@@ -1,11 +1,30 @@
+// import Image from 'next/image'
 import { BellIcon, SearchIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
 // import useAuth from '../hooks/useAuth'
+import { useEffect, useState } from 'react'
 // import BasicMenu from './BasicMenu'
 
 function Header() {
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true)
+      } else {
+        setIsScrolled(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
   return (
-    <header>
+    <header className={`${isScrolled && ' bg-red-500  '}`}>
       <div className="flex items-center space-x-2 md:space-x-10">
         <img
           src="https://rb.gy/ulxxee"
